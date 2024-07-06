@@ -1,0 +1,77 @@
+{
+    "clients": [
+        {
+            "name": "Wala",
+            "email": "wala@gmail.com",
+            "adress": "Sousse",
+            "phoneNumber": "99258635",
+            "imageUrl": "https://moimonavenircom.b-cdn.net/wp-content/uploads/istock-501294464-760x540.jpg"
+        },
+        {
+            "username": "Ahmed",
+            "email": "ahmed@gmail.com",
+            "adress": "Tunis",
+            "phoneNumber": "975846856",
+            "imageUrl": "https://storage.canalblog.com/32/72/1228697/127715036_o.jpg"
+        },
+        {
+            "username": "Houda",
+            "email": "houda@gmail.com",
+            "adress": "Sfax",
+            "phoneNumber": "25258639",
+            "imageUrl": "https://img.freepik.com/photos-gratuite/sourire-confiant-femme-affaires-posant-bras-croises_1262-20950.jpg"
+        }
+    ],
+    "freelancer": [
+        {
+            "name": "Ahmed",
+            "email": "ahmed@gmail.com",
+            "adress": "Sousse",
+            "phoneNumber": "99258635",
+            "imageUrl": "https://c8.alamy.com/compfr/2gyww6d/confiance-professionnelle-portrait-d-homme-confiant-isole-sur-blanc-un-homme-professionnel-heureux-2gyww6d.jpg"
+        },
+        {
+            "name": "Amir",
+            "email": "amir@gmail.com",
+            "adress": "Tunis",
+            "phoneNumber": "58698214",
+            "imageUrl": "https://www.karine-s.net/wp-content/uploads/2020/04/photo-corporate-CV-professionnelle-5.jpg"
+        },
+        {
+            "name": "Amira",
+            "email": "amira@gmail.com",
+            "adress": "Sfax",
+            "phoneNumber": "97258635",
+            "imageUrl": "https://i.pinimg.com/236x/73/dd/5e/73dd5e992def279251499c528cc94562.jpg"
+        }
+    ],
+    "talents": [
+        { 
+            "title": "Web Development",
+            "description": "Creating dynamic and responsive websites.",
+            "imageUrl": "https://example.com/web-dev.jpg",
+            "price": 100,
+            "category": "Programming",
+            "rating": 4,
+            "freelancer_id": 1 
+          },
+          { 
+            "title": "Graphic Design",
+            "description": "Designing logos, banners, and illustrations.",
+            "imageUrl": "https://example.com/graphic-design.jpg",
+            "price": 80,
+            "category": "Design",
+            "rating": 5,
+            "freelancer_id": 2
+          },
+          { 
+            "title": "Content Writing",
+            "description": "Creating engaging and SEO-friendly content.",
+            "imageUrl": "https://example.com/content-writing.jpg",
+            "price": 70,
+            "category": "Writing",
+            "rating": 4,
+            "freelancer_id": 3
+          }
+    ]
+}

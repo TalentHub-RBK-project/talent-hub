@@ -13,6 +13,12 @@ import Login from './component/pages/Login.jsx';
 import CreateTalent from './component/pages/CreateTalent.jsx';
 import axios from 'axios'
 import AllTalent from './component/pages/AllTalent.jsx';
+import CreateLoder from './Loader/createTalentLoader.jsx';
+import Apply from './component/pages/Apply.jsx';
+import CreateSucc from './popups/createSucc.jsx';
+import Offers from './component/pages/FreelancerOfferes.jsx'
+import SearchTalent from './component/pages/SearchTalent.jsx';
+import UpdateTalent from './component/pages/Update.jsx';
 
 import { jwtDecode } from "jwt-decode";
 import OneTalent from './component/pages/OneTalent.jsx';
@@ -24,8 +30,11 @@ function App() {
   const [user,setUser]=useState({})
   const [oneTalent, setOneTalent] = useState({})
   const [selectedTalentId, setSelectedTalentId] = useState(null);
- 
-
+  const [OffersNumber,setOffersNumber]=useState(0)
+  const [SearchVal,setSearchVal]=useState('')
+  
+  
+ console.log(user);
 
   const getTalents = () => {
     axios.get('http://127.0.0.1:5000/api/talents/getAll').then((response) => {
@@ -61,27 +70,42 @@ function App() {
     }
   }, []);
 
-
+  const updateTalent = (id, body) => {
+    axios.put(`http://127.0.0.1:5000/api/talents/${id}`, body).then((response) => {
+      console.log('Talent updated successfully', response.data)
+      setRefetsch(!refetsch)
+    }).catch((error) => { console.log(error) })
+  }
 
   const onChange = () => {
     setRefetsch(!refetsch)
   }
+  const onChangeOneTalent = (talent) => {
+    setOneTalent(talent)
+  }
 
   return (
     <Router>
-      <NavBar user={user} />
+      <NavBar user={user} setUser={setUser} offers={OffersNumber} searchVal={setSearchVal} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home talent={talents} oneTalent={setSelectedTalentId} setOneTalent={setOneTalent} />} />
         <Route path="/sign-up-role" element={<SignUpRole setSignUpRole={setSignUpRole} role={SignUprole} />} />
         <Route path="/sign-up-form" element={<SignUpForm role={SignUprole} />} />
         <Route path="/sign-up-role" element={<SignUpRole setSignUpRole={setSignUpRole} role={SignUprole} />} />
         <Route path="/login" element={<Login user={setUser} />} />
-        <Route path="/programming" element={<Programming />} />
-        <Route path="/graphics" element={<Graphics />} />
-        <Route path="/digital-marketting" element={<DigitalMarketting />} />
+        <Route path="/programming" element={<Programming talents={talents} setOneTalent={setOneTalent} oneTalent={setSelectedTalentId} />} />
+        <Route path="/graphics" element={<Graphics talents={talents} setOneTalent={setOneTalent} oneTalent={setSelectedTalentId} />} />
+        <Route path="/digital-marketting" element={<DigitalMarketting setOneTalent={setOneTalent} oneTalent={setSelectedTalentId} talents={talents} />} />
         <Route path="/addtalent" element={<CreateTalent  user={user}  change={onChange}/>}></Route>
-        <Route path="/alltalent" element={<AllTalent talents={talents} change={onChange} delete={deleteTalent} talentid={setSelectedTalentId} />}></Route>
-        <Route path="/onetalent" element={<OneTalent talentid={selectedTalentId} />}></Route>
+        <Route path="/alltalent" element={<AllTalent talents={talents} change={onChangeOneTalent} delete={deleteTalent} talentid={setSelectedTalentId} user={user} />}></Route>
+        <Route path="/onetalent" element={<OneTalent talentid={selectedTalentId} user={user} />}></Route>
+        <Route path="/create-loader" element={<CreateLoder />} />
+        <Route path="/apply-talent" element={<Apply oneTalent={oneTalent} user={user} />} />
+        <Route path="/create-succ" element={<CreateSucc />} />
+        <Route path="/offers" element={<Offers offersNumber={setOffersNumber} user={user} />} />
+        <Route path="/search-talent" element={<SearchTalent talents={talents} setOneTalent={setOneTalent} oneTalent={setSelectedTalentId} searchVal={SearchVal} />} />
+        <Route path="/updatetalent" element={<UpdateTalent talent={oneTalent} update={updateTalent} />}></Route>
+
       </Routes>
       <Footer />
     </Router>

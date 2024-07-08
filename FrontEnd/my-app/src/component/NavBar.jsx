@@ -9,14 +9,22 @@ import { RiAlignItemLeftLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdPostAdd } from "react-icons/md";
 import { CiBoxList } from "react-icons/ci";
+import {useNavigate } from 'react-router-dom'
+
 
 
 const NavBar = (props) => {
   const [dropDown, setDropDown] = useState(false)
-  console.log(props.user.id);
-  
+  const navigation=useNavigate()
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('isAuthenticated');
+  }
+const handleNavigation=()=>{
+  navigation('/search-talent')
+}
   return (
-    <nav className='flex items-center flex-row p-2'>
+    <nav className='flex items-center flex-row p-2  bg-[#fff]'>
       <div className="logo">
         <NavLink to='/'>
 
@@ -37,8 +45,8 @@ const NavBar = (props) => {
         </ul>
       </div>
       <div className="search-bar flex items-center ml-24 bg-[#fff] p-1.5 rounded-xl border ">
-        <FiSearch size={18} className='cursor-pointer text-[#181818]' />
-        <input type='search' placeholder='Search' className='search-inp ml-2 outline-none '></input>
+        <FiSearch onClick={()=>handleNavigation()} size={18} className='cursor-pointer text-[#181818]' />
+        <input onChange={(e)=>{props.searchVal(e.target.value)}} type='search' placeholder='Search' className='search-inp ml-2 outline-none '></input>
       </div>
       {!props.user.id &&
         <>
@@ -58,7 +66,7 @@ const NavBar = (props) => {
       {props.user.role === 'client' && <div className='profile-client flex items-center ml-14 cursor-pointer' onClick={() => setDropDown(true)}>
         <div className="client-prof flex items-center">
           <img src={ProfileImage} className='h-12'></img>
-          <h3 className='font-medium cursor-pointer'>Username ▼</h3>
+          <h3 className='font-medium cursor-pointer'>{props.user.name} ▼</h3>
         </div>
         {dropDown && <div className="drop-down-user  absolute ml-2.5 mt-44 p-6">
           <div className="wishList flex gap-2 items-center hover:bg-[#108a00] hover:text-[#fff] hover:p-1 cursor-pointer hover:rounded-lg">
@@ -67,24 +75,24 @@ const NavBar = (props) => {
           </div>
           <div className="logout flex items-center gap-2 mt-4 hover:bg-[#108a00] hover:text-[#fff] hover:p-1 cursor-pointer hover:rounded-lg">
             <RiLogoutCircleLine size={23} />
-            <h3 className='font-medium text-base'>Logout</h3>
+            <h3 onClick={()=>{handleLogout(),props.setUser({})}} className='font-medium text-base'>Logout</h3>
           </div>
         </div>}
       </div>}
       {props.user.role === 'freelancer' && <div className='profile-freelancer flex items-center ml-14 cursor-pointer' onClick={() => setDropDown(!dropDown)}>
         <div className="client-prof flex items-center">
           <img src={ProfileImage} className='h-12'></img>
-          <h3 className='font-medium cursor-pointer'>Username ▼</h3>
+          <h3 className='font-medium cursor-pointer'>{props.user.name} ▼</h3>
         </div>
         {dropDown && <div className="drop-down-user  absolute ml-2.5 mt-64 p-6">
           <div className="wishList flex gap-2 items-center hover:bg-[#108a00] hover:text-[#fff] hover:p-1 cursor-pointer hover:rounded-lg">
             <RiAlignItemLeftLine size={23} />
-            <h3 className='font-medium text-base' >Orders</h3>
+            <h3 className='font-medium text-base' ><Link to="/offers">Offers</Link></h3>
             <div className="order-number flex items-center justify-center">
-              <span className='font-bold text-sm'>3</span>
+              <span className='font-bold text-sm'>1</span>
             </div>
           </div>
-          <div className="wishList flex gap-2 mt-4 items-center hover:bg-[#108a00] hover:text-[#fff] hover:p-1 cursor-pointer hover:rounded-lg">
+          <div className="wishList flex gap-2 mt-4 items-center bg-[#108a00] text-[#fff] p-1 cursor-pointer rounded-lg">
             <IoSettingsOutline size={23} />
             <h3 className='font-medium text-base' >Settings</h3>
           </div>
@@ -100,7 +108,9 @@ const NavBar = (props) => {
 
           <div className="logout flex items-center gap-2 mt-4 hover:bg-[#108a00] hover:text-[#fff] hover:p-1 cursor-pointer hover:rounded-lg">
             <RiLogoutCircleLine size={23} />
-            <h3 className='font-medium text-base'>Logout</h3>
+            <NavLink to='/'>
+            <h3 onClick={()=>{handleLogout(),props.setUser({})}} className='font-medium text-base'>Logout</h3>
+            </NavLink>
           </div>
         </div>}
       </div>}
